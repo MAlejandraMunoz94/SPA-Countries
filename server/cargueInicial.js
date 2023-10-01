@@ -1,6 +1,6 @@
 const {Country } = require("../server/src/db");
 const axios = require ("axios")
-
+// funcion para cargar los paises desde la api  hasta la bdd al iniciar el server
 const cargueInicial = async () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/countries`);
