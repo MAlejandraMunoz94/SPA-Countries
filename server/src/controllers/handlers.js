@@ -7,12 +7,12 @@ const getCountries = async (req,res)=>{
  try {
     const response = await findCountries(name);
 
-   if(response.length >1){
+   if(response.length>0){
     res.status(200).json(response);
    } else{ throw new Error ("No se encontraron paises")};
 
  } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).json({error: error.message});
  }
 };
 
@@ -24,7 +24,7 @@ const getCountriesById = async (req,res)=>{
       res.status(200).json(response);
 
    } catch (error) {
-      res.status(400).send(error.message);
+      res.status(400).json({error: error.message});
    }
 };
 
@@ -32,11 +32,11 @@ const postActivities = async (req,res) => {
    const {CountryId,name,dificult,duration,season} = req.body;
 
    try {
-      await createActivity(CountryId,name,dificult,duration,season);
-      res.status(200).send("Actividad creada correctamente")
+      const algo = await createActivity(CountryId,name,dificult,duration,season);
+      res.status(200).json(algo)
 
    } catch (error) {
-      res.status(400).send(error.message);
+      res.status(400).json({error: error.message});
    }
 };
 
@@ -44,15 +44,14 @@ const getActivities = async (req,res)=>{
    try {
       const response = await findActivities();
 
-      if (response.length >1){
+      if (response.length >0){
          res.status(200).json(response)
       } else {
          throw new Error (error.message);
       }
    } catch (error) {
-      res.status(400).send(error.message);
+      res.status(400).json({error: error.message});
    }
-   
 };
 
 module.exports = {getCountries,getCountriesById,postActivities,getActivities}
