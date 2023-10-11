@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { cleanState } from '../redux/actions';
 
-function SearchBar({onSearch, setAux}) {
+function SearchBar({onSearch}) {
 
 const dispatch = useDispatch();
 const [searchName,setSearchName] = useState("");
@@ -13,7 +13,6 @@ setSearchName(valor);
 };
 
 function reset (){
-  setAux(false);
   dispatch(cleanState())
 }
 

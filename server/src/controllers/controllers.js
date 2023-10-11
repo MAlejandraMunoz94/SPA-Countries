@@ -9,7 +9,7 @@ const findCountries = async (name) => {
         where: { name: { [Op.iLike]: `%${name}%` } },
         include: {
           model: Activity,
-          attributes: ["name"],
+          attributes: ["name","season","dificult","duration"],
           through: { attributes: [] },
         },
       });
@@ -18,7 +18,7 @@ const findCountries = async (name) => {
       const countries = await Country.findAll({
         include: {
           model: Activity,
-          attributes: ["name"],
+          attributes: ["name","season","dificult","duration"],
           through: { attributes: [] },
         },
       });
@@ -34,7 +34,7 @@ const findCountriesById = async (idPais) => {
     const response = await Country.findByPk(idPais, {
       include: {
         model: Activity,
-        attributes: ["id", "name"],
+        attributes: ["name","season","dificult","duration"],
         through: { attributes: [] },
       },
     });

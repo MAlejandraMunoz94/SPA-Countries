@@ -24,6 +24,8 @@ if (countryDetail === null) {
     );
 };
 
+console.log(countryDetail.Activities)
+
     return (
         <div>
         <NavLink to = "/home">
@@ -32,11 +34,12 @@ if (countryDetail === null) {
         <h2>{countryDetail?.id}</h2>
         <h3>Nombre: {countryDetail?.name}</h3>
         <img src={countryDetail?.flag} alt='' />
-        <h3>Continente: {countryDetail?.region}</h3>
+        <h3>Continente: {countryDetail?.continents}</h3>
         <h3>Capital: {countryDetail?.capital}</h3>
         <h3>Subregion: {countryDetail?.subregion}</h3>
         <h3>Area m2: {countryDetail?.area}</h3>
         <h3>Poblacion: {countryDetail?.population}</h3>
+        <h3>Activities: {countryDetail?.Activities?.length>0?countryDetail.Activities?.map((activity) => {return (<div> <h3>Nombre: {activity.name}</h3> <h3>Temporada: {activity.season}</h3> <h3>Duración: {activity.duration}</h3> </div>) }):"No tiene actividades asignadas"} </h3>
         </div>
     )
   };

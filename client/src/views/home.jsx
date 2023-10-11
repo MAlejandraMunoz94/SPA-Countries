@@ -1,6 +1,7 @@
 import SearchBar from "../components/SearchBar"
 import FilterBar from "../components/FilterBar";
 import Card from "../components/Card";
+import Pagination from "../components/pagination";
 import { useState } from 'react'
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -10,10 +11,9 @@ import {getCountries, getCountryByName, cleanState} from "../redux/actions";
 
 function Home() {
 
-  //Llamo al estado de redux donde se cargan todos los paises
-  const allCountries = useSelector((state) => state.allCountries);
-  //Llamo al estado de redux donde se carga el pais que llamo por nombre
-  const countryByName = useSelector((state) => state.country);
+  //Llamo al+ todos los estados de redux 
+  const {allCountries, country, filterActivities} = useSelector((state) => state);
+
   const dispatch = useDispatch();
 
   //Cuando se monte el componente corro la accion de getCountries y cargo el estado
@@ -22,8 +22,13 @@ function Home() {
     return () => {dispatch(cleanState());}
   },[]);
 
-  //estado local auxiliar para confirmar si el componente tiene filtros activos
-  const [auxFiltros, setAux] = useState(false);
+  //estados locales para paginacion
+  const [countriesPerPage, setCountriesPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalCountries = allCountries.length;
+  const lastIndex = currentPage * countriesPerPage;
+  const firstIndex = lastIndex - countriesPerPage;
 
   //funcion que despacha la busqueda por nombre del pais
   function onSearch(name) {
@@ -31,17 +36,20 @@ function Home() {
     if (name === ""){
       window.alert("Ingrese el pais a buscar")
     };
-    setAux(true);
      dispatch(getCountryByName(name))
   };
 
+  const show =   country.length>0 ? country:  filterActivities.length>0 ?  filterActivities : allCountries;
+
     return (
         <div>
-       <SearchBar onSearch= {onSearch} setAux={setAux} />
+       <SearchBar onSearch= {onSearch}/>
        <FilterBar/>
 
-    { auxFiltros ? countryByName.map((element,index) =>(<Card key={index} props={element}/>)): allCountries.map((element) =>(<Card key={element.id} props={element}/>))} 
+    {  show.map((element,index) =>(<Card key={index} props={element}/>)).slice(firstIndex, lastIndex) } 
+       <Pagination countriesPerPage = {countriesPerPage} currentPage = {currentPage} setCurrentPage = {setCurrentPage} totalCountries = {totalCountries}/>
         </div>
+
     )
   };
   

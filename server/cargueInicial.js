@@ -9,7 +9,7 @@ const cargueInicial = async () => {
         id: element.cca3,
         name: element.name.common,
         flag: element.flags.png,
-        region: element.region,
+        continents: element.continents[0] ? element.continents[0] : "No registra Continente",
         capital: element.capital ? element.capital[0] : "No registra capital",
         subregion: element.subregion ? element.subregion : "No registra subregion",
         area: element.area,
