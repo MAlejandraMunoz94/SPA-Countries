@@ -1,0 +1,22 @@
+.containerFilters {
+    padding: 2rem 0;
+    width: auto;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  select {
+    box-shadow: 1px 1px 1px 1px rgb(86, 84, 84);
+    border: 2px solid rgb(14, 14, 14);
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #fbf6f6, #abdaf0);
+  }
+  select option {
+    background-color: rgb(109, 190, 236);
+  }
+  input {
+    box-shadow: 1px 1px 1px 1px rgb(0, 0, 0);
+    border: 2px solid rgb(250, 246, 246);
+    border-radius: 5px;
+  }

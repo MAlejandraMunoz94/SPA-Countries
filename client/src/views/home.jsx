@@ -1,4 +1,4 @@
-import SearchBar from "../components/SearchBar"
+import styles from "./home.module.css"
 import FilterBar from "../components/FilterBar";
 import Card from "../components/Card";
 import Pagination from "../components/pagination";
@@ -43,11 +43,9 @@ function Home() {
 
     return (
         <div>
-       <SearchBar onSearch= {onSearch}/>
        <FilterBar/>
-
-    {  show.map((element,index) =>(<Card key={index} props={element}/>)).slice(firstIndex, lastIndex) } 
        <Pagination countriesPerPage = {countriesPerPage} currentPage = {currentPage} setCurrentPage = {setCurrentPage} totalCountries = {totalCountries}/>
+    <div className= {styles.cardCont}> {show.map((element,index) =>(<Card  key={index} props={element}/>)).slice(firstIndex, lastIndex) } </div>
         </div>
 
     )

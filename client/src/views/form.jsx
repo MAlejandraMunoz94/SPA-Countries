@@ -1,9 +1,9 @@
+import styles from "./form.module.css";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCountries, postActivity } from "../redux/actions";
-import validations from "../components/validation"
-
+import validations from "../components/validation";
 
 const Form = () => {
   const allCountries = useSelector((state) => state.allCountries);
@@ -69,11 +69,11 @@ const Form = () => {
       dificult: +form.dificult,
       duration: +form.duration,
       season: form.season,
-      CountryId: form.countryId
+      CountryId: form.countryId,
     };
 
     // Envía los datos al action postActivity
-    console.log(activityData)
+    console.log(activityData);
     dispatch(postActivity(activityData));
     navigate("/home");
   };
@@ -92,80 +92,90 @@ const Form = () => {
   }, [form]);
 
   return (
-    <div >
+    <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-        <label>Nombre de la actividad:</label>
-        <input type="text" name="name" onChange={handleFormData} />
-        {formError.name ? (
-          <p >{formError.name}</p>
-        ) : (
-          <p>
-            <br />
-          </p>
-        )}
+        <div>
+          <label>Nombre de la actividad:</label>
+          <input type="text" name="name" onChange={handleFormData} />
+          {formError.name ? (
+            <p>{formError.name}</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+        </div>
 
-        <label>Dificultad:</label>
-        <select name="dificult" value={form.dificult} onChange={handleFormData}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        {formError.dificult ? (
-          <p >{formError.dificult}</p>
-        ) : (
-          <p>
-            <br />
-          </p>
-        )}
-        <label>Temporada:</label>
-        <select name="season" value={form.season} onChange={handleFormData}>
-          <option value="">Seleccione una temporada</option>
-          <option value="Otoño">Otoño</option>
-          <option value="Primavera">Primavera</option>
-          <option value="Invierno">Invierno</option>
-          <option value="Verano">Verano</option>
-        </select>
-        {formError.season ? (
-          <p >{formError.season}</p>
-        ) : (
-          <p>
-            <br />
-          </p>
-        )}
-
-        <label>Duracion:</label>
-        <input
-          type="integer"
-          name="duration"
-          value={form.duration}
-          onChange={handleFormData}
-        />
-        {formError.duration ? (
-          <p >{formError.duration}</p>
-        ) : (
-          <p>
-            <br />
-          </p>
-        )}
-
-        <div >
-          <label>* Paises:</label>
+        <div>
+          <label>Dificultad:</label>
           <select
-            name="countryId"
-            onChange={handleCountriesChange}
+            name="dificult"
+            value={form.dificult}
+            onChange={handleFormData}
           >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          {formError.dificult ? (
+            <p>{formError.dificult}</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label>Temporada:</label>
+          <select name="season" value={form.season} onChange={handleFormData}>
+            <option value="">Seleccione una temporada</option>
+            <option value="Otoño">Otoño</option>
+            <option value="Primavera">Primavera</option>
+            <option value="Invierno">Invierno</option>
+            <option value="Verano">Verano</option>
+          </select>
+          {formError.season ? (
+            <p>{formError.season}</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label>Duracion:</label>
+          <input
+            type="integer"
+            name="duration"
+            value={form.duration}
+            onChange={handleFormData}
+          />
+          {formError.duration ? (
+            <p>{formError.duration}</p>
+          ) : (
+            <p>
+              <br />
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label>Paises:</label>
+          <select name="countryId" onChange={handleCountriesChange}>
             <option value="" disabled>
               Seleccione el pais{" "}
             </option>
             {sortedCountries.map((country) => (
-              <option key={country.id} value={country.id}>
+              <option className={styles.check} key={country.id} value={country.id}>
                 {country.name}
               </option>
             ))}
           </select>
-          
+
           <div>
             {selectedCountries.map((countryId) => {
               const country = allCountries.find(
@@ -174,9 +184,7 @@ const Form = () => {
               return (
                 <div>
                   <span>{country?.name}</span>
-                  <button
-                    onClick={() => handleRemoveCountry(countryId)}
-                  >
+                  <button onClick={() => handleRemoveCountry(countryId)}>
                     X
                   </button>
                 </div>
@@ -184,15 +192,10 @@ const Form = () => {
             })}
           </div>
         </div>
-        {formError.countryId && (
-          <p>{formError.countryId}</p>
-        )}
+        {formError.countryId && <p>{formError.countryId}</p>}
         <br />
 
-        <button
-        onClick = {handleSubmit}
-          type="submit"
-        >
+        <button onClick={handleSubmit} type="submit">
           Crear Actividad{" "}
         </button>
       </form>

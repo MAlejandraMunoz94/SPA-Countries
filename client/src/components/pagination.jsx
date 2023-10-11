@@ -1,4 +1,4 @@
-
+import style from './pagination.module.css';
 
 export default function Pagination ({countriesPerPage, currentPage, setCurrentPage, totalCountries}) {
 
@@ -21,16 +21,21 @@ export default function Pagination ({countriesPerPage, currentPage, setCurrentPa
     
     return (
       <div>
-          {currentPage === 1 ? null : <button
+        {
+          pageNumbers.length === 1 ? setCurrentPage(1) : <nav className={style.container}>
+          {
+              currentPage === 1 ? null : <button
+              className= {style.btn}
               onClick={onPreviousPage}
             >
               Previous
             </button>
           }
-      <ul>
+      <ul className={style.ul}>
         {pageNumbers.map((noPage) => (
-          <li key={noPage}>
+          <li key={noPage} className={style.li}>
             <button
+              className={`${style.link} ${currentPage === noPage ? style.current : ''}`}
               onClick={() => onSpecificPage(noPage)}
             >
               {noPage}
@@ -40,11 +45,15 @@ export default function Pagination ({countriesPerPage, currentPage, setCurrentPa
       </ul>
       {
           currentPage === pageNumbers.length ? null : <button
+          className={style.btn}
           onClick={onNextPage}
         >
           Next
         </button>
       }
+      
+    </nav>
+        }
       </div>
         
     )

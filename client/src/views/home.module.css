@@ -1,0 +1,9 @@
+  .cardCont {
+    margin-top: 20px;
+    border-width: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+    gap: 2rem;
+    width: 100%;
+    justify-content: center;
+  }

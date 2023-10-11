@@ -1,3 +1,4 @@
+import styles from "./FilterBar.module.css"
 import { useDispatch } from "react-redux";
 import { filterByContinent, filterByActivity, orderByPopulation, orderByAz} from "../redux/actions";
 
@@ -20,7 +21,7 @@ function FilterBar() {
   };
 
     return (
-        <div>
+        <div className= {`${styles.containerFilters} container`} >
          <select onChange={handleFilter}>
         <option>Continentes</option>
         <option value="North America">Norte America</option>

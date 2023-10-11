@@ -1,0 +1,16 @@
+.inputSearch {
+    width: 200px;
+    border-color: rgb(250, 247, 247);
+    text-align: center;
+  }
+  
+  .containerSearch .btnSearch {
+    background-color: var(--primary-color);
+    margin-left: 1rem;
+    color: white;
+  }
+  
+  .containerSearch .btnSearch:hover {
+    color: rgb(11, 246, 226);
+    border-width: 2px;
+  }

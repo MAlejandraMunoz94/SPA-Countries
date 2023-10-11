@@ -1,3 +1,4 @@
+import styles from "./SearchBar.module.css"
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { cleanState } from '../redux/actions';
@@ -13,14 +14,15 @@ setSearchName(valor);
 };
 
 function reset (){
+
   dispatch(cleanState())
 }
 
 return (
-    <div>
-    <input value={searchName} onChange={handleChange}/>
-    <button onClick={()=> onSearch(searchName)}>Busqueda</button>
-    <button onClick={()=> reset()}>Reset</button>
+    <div className = {styles.containerSearch}>
+    <input value={searchName} placeholder="Ingrese el pais" onChange={handleChange}/>
+    <button className={`${styles.btnSearch} btn btnPrimary`} onClick={()=> onSearch(searchName)}>Busqueda</button>
+    <button className={`${styles.btnSearch} btn btnPrimary`} onClick={()=> reset()}>Reset</button>
     </div>
 )
 };

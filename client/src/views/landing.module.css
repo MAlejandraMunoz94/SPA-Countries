@@ -1,4 +1,19 @@
 
-.container {
-    background-color: azure
+.container button {
+margin-right: 40%;
+  width: 220px;
+  height: 100px;
+
+  background: linear-gradient(to bottom, #1e025a, #0123aa);
+  border: solid;
+  text-align: center;
+  position: fixed; 
+
+  border-color: black;
+  color: rgb(210, 200, 200);
+  font-family: var(--primary-fon);
+  font-size: 30px;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.762);
+  transition: background-color 200ms, box-shadow 300ms;
 }
