@@ -11,17 +11,16 @@ import {
 } from "./actions";
 
 const initialState = {
-  allCountries: [], //allDrivers
-  country: [], //aux
+  allCountries: [], //
+  country: [], //
   copy: [],
   copy2: [],
   countryDetail: {},
-  filterActivities: [] // filteredByData
+  filterActivities: [], //
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-
     case GET_COUNTRIES:
       return { ...state, allCountries: action.payload };
 
@@ -33,18 +32,22 @@ export const reducer = (state = initialState, action) => {
 
         state.copy2 = [...state.country, newCountry].flat(); // se copia por seguridad en este estado de copia
 
-        return  { ...state, country: [...state.country, newCountry].flat() };
-
+        return { ...state, country: [...state.country, newCountry].flat() };
       } else {
-
-        state.copy2 = [...state.country, action.payload].flat();// se copia por seguridad en este estado de copia
+        state.copy2 = [...state.country, action.payload].flat(); // se copia por seguridad en este estado de copia
 
         return { ...state, country: [...state.country, action.payload].flat() };
       }
     }
 
     case CLEAN_STATE: {
-      return { ...state, country: [] , filterActivities: [], copy:[], copy2:[]};
+      return {
+        ...state,
+        country: [],
+        filterActivities: [],
+        copy: [],
+        copy2: [],
+      };
     }
 
     case GET_COUNTRY_ID: {
@@ -52,27 +55,29 @@ export const reducer = (state = initialState, action) => {
     }
 
     case FILTER_BY_CONTINENT: {
-      
       const show =
-      state.copy2.length>0? state.copy2 : state.country.length >0? state.country : state.allCountries;
+        state.copy2.length > 0
+          ? state.copy2
+          : state.country.length > 0
+          ? state.country
+          : state.allCountries;
 
       const filtered = show.filter(
-        (country) => country.continents === action.payload);
+        (country) => country.continents === action.payload
+      );
 
       state.copy = filtered; // guardo una copia de filtros en otro estado de copia
 
-      if (filtered.length === 0){
+      if (filtered.length === 0) {
         return state;
       } // si no hay nada en el filtro, se retorna el estado como esta
 
-      return { ...state, country: filtered};
+      return { ...state, country: filtered };
     }
 
     case ORDER_BY_AZ: {
       const array =
-          state.country.length > 0
-          ? state.country
-          : state.allCountries;
+        state.country.length > 0 ? state.country : state.allCountries;
 
       const order = array.sort((a, b) => {
         const countryA = a.name || "";
@@ -109,7 +114,6 @@ export const reducer = (state = initialState, action) => {
     }
 
     case FILTER_BY_ACTIVITY: {
-    
       if (state.copy.length === 0 && state.copy2.length === 0) {
         const filterCountry = state.allCountries.filter((country) => {
           return country?.Activities?.map((activity) => activity.dificult)
@@ -117,14 +121,14 @@ export const reducer = (state = initialState, action) => {
             .includes(+action.payload);
         });
 
-        if(filterCountry.length === 0){
+        if (filterCountry.length === 0) {
           return state;
         }
 
         return { ...state, country: filterCountry };
       } else {
         const aux = state.copy.concat(state.copy2);
-        console.log(aux)
+        console.log(aux);
 
         const filterCountry = aux.filter((country) => {
           return country?.Activities?.map((activity) => activity.dificult)
@@ -132,13 +136,12 @@ export const reducer = (state = initialState, action) => {
             .includes(+action.payload);
         });
 
-        if(filterCountry.length === 0){
+        if (filterCountry.length === 0) {
           return state;
         }
 
         return { ...state, country: filterCountry };
       }
-
     }
 
     default:

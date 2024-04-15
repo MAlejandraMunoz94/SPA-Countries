@@ -9,7 +9,7 @@ const findCountries = async (name) => {
         where: { name: { [Op.iLike]: `%${name}%` } },
         include: {
           model: Activity,
-          attributes: ["name","season","dificult","duration"],
+          attributes: ["name", "season", "dificult", "duration"],
           through: { attributes: [] },
         },
       });
@@ -18,7 +18,7 @@ const findCountries = async (name) => {
       const countries = await Country.findAll({
         include: {
           model: Activity,
-          attributes: ["name","season","dificult","duration"],
+          attributes: ["name", "season", "dificult", "duration"],
           through: { attributes: [] },
         },
       });
@@ -34,7 +34,7 @@ const findCountriesById = async (idPais) => {
     const response = await Country.findByPk(idPais, {
       include: {
         model: Activity,
-        attributes: ["name","season","dificult","duration"],
+        attributes: ["name", "season", "dificult", "duration"],
         through: { attributes: [] },
       },
     });
@@ -54,15 +54,16 @@ const createActivity = async (CountryId, name, dificult, duration, season) => {
     },
   });
 
-  if (filteredDB.length >0) {
+  if (filteredDB.length > 0) {
     const relacion = await country_activity.findAll({
       where: { CountryId: CountryId, ActivityId: filteredDB[0].id },
     });
     if (relacion.length === 0) {
       await filteredDB[0].addCountry(CountryId);
-      return ("Actividad asociada al pais")
-    } else { return ("Esta actividad ya se encuentra creada para el pais seleccionado")}
-
+      return "Actividad asociada al pais";
+    } else {
+      return "Esta actividad ya se encuentra creada para el pais seleccionado";
+    }
   } else if (filteredDB.length === 0) {
     const newActivity = await Activity.create({
       name: name,
@@ -71,9 +72,8 @@ const createActivity = async (CountryId, name, dificult, duration, season) => {
       season: season,
     });
     await newActivity.addCountry(CountryId);
-    return ("Actividad creada correctamente");
-};
-
+    return "Actividad creada correctamente";
+  }
 };
 
 const findActivities = async () => {

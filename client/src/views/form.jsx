@@ -1,4 +1,5 @@
 import styles from "./form.module.css";
+import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -93,6 +94,9 @@ const Form = () => {
 
   return (
     <div className={styles.container}>
+      <NavLink to="/home">
+        <button>Back</button>
+      </NavLink>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre de la actividad:</label>
@@ -170,7 +174,11 @@ const Form = () => {
               Seleccione el pais{" "}
             </option>
             {sortedCountries.map((country) => (
-              <option className={styles.check} key={country.id} value={country.id}>
+              <option
+                className={styles.check}
+                key={country.id}
+                value={country.id}
+              >
                 {country.name}
               </option>
             ))}
